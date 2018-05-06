@@ -57,7 +57,7 @@ public class QueryUtils {
         SimpleDateFormat jsonFormatter = new SimpleDateFormat(jsonDatePattern, Locale.US);
         try {
             Date parsedJsonDate = jsonFormatter.parse(rawDate);
-            String finalDatePattern = "MMM d, yyy";
+            String finalDatePattern = "d MMM, yyy";
             SimpleDateFormat finalDateFormatter = new SimpleDateFormat(finalDatePattern, Locale.US);
             return finalDateFormatter.format(parsedJsonDate);
         } catch (ParseException e) {

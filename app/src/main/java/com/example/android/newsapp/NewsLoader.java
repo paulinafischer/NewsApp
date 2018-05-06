@@ -3,7 +3,6 @@ package com.example.android.newsapp;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
