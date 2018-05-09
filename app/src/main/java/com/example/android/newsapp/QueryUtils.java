@@ -33,11 +33,11 @@ public class QueryUtils {
         builder.scheme("http")
                 .encodedAuthority("content.guardianapis.com")
                 .appendPath("search")
-                .appendQueryParameter("order-by", "newest")
+                .appendQueryParameter("order-by", "relevance")
                 .appendQueryParameter("show-references", "author")
                 .appendQueryParameter("show-tags", "contributor")
-                .appendQueryParameter("q", "Android")
-                .appendQueryParameter("api-key", "test");
+                .appendQueryParameter("q", "Game of Thrones")
+                .appendQueryParameter("api-key", "49f51f17-b673-4ae7-a154-e63d19398b69");
         String url = builder.build().toString();
         return url;
     }
@@ -57,7 +57,7 @@ public class QueryUtils {
         SimpleDateFormat jsonFormatter = new SimpleDateFormat(jsonDatePattern, Locale.US);
         try {
             Date parsedJsonDate = jsonFormatter.parse(rawDate);
-            String finalDatePattern = "d MMM, yyy";
+            String finalDatePattern = "d MMM yyy";
             SimpleDateFormat finalDateFormatter = new SimpleDateFormat(finalDatePattern, Locale.US);
             return finalDateFormatter.format(parsedJsonDate);
         } catch (ParseException e) {
