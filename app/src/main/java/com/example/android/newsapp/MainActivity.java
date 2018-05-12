@@ -20,21 +20,21 @@ public class MainActivity
         implements LoaderManager.LoaderCallbacks<List<News>>, SwipeRefreshLayout.OnRefreshListener {
     private NewsAdapter adapter;
     private static int LOADER_ID = 0;
+    private TextView mEmptyStateTextView;
     SwipeRefreshLayout swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         swipe = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipe.setOnRefreshListener(this);
         swipe.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         ListView listView = (ListView) findViewById(R.id.list_view);
         adapter = new NewsAdapter(this);
         listView.setAdapter(adapter);
+        ListView.setEmptyView(mEmptyStateTextView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -62,15 +62,24 @@ public class MainActivity
             adapter.setNotifyOnChange(true);
             adapter.addAll(data);
         }
+        mEmptyStateTextView.setText(R.string.empty_data);
+        // Clear the adapter of previous data
+        //mAdapter.clear();
+
+        // If there is a valid list of {@link data}s, then add them to the adapter's
+        // data set. This will trigger the ListView to update.
+        if (data != null && !data.isEmpty()) {
+            //mAdapter.addAll(data);
+            updateUi(data);
+    }
+    }
+
+
+    @Override
+    public void onLoaderReset(Loader<List<News>> loader){
+
     }
 
     @Override
-    public void onLoaderReset(Loader<List<News>> loader) {
-
-    }
-
-    @Override
-    public void onRefresh() {
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
-    }
+    public void onRefresh() {getSupportLoaderManager().restartLoader(LOADER_ID, null, this);}
 }
